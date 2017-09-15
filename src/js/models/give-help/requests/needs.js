@@ -20,15 +20,15 @@ const setDistanceAsLocation = (n, {latitude, longitude}) => {
   n.locationDescription = (distanceInMetres * 0.00062137).toFixed(2) + ' miles away'
 }
 
-export const formatNeeds = (needs, position) => {
+export const formatNeeds = (data, position) => {
   const locationFormatter = !position || getLocation.geoLocationUnavailable
     ? setPostcodeAsLocation
     : setDistanceAsLocation
-  needs
+  data.items
     .forEach((n) => {
       formatDate(n)
       locationFormatter(n, position)
       n.detailsUrl = `request/?id=${n.id}`
     })
-  return needs
+  return data
 }

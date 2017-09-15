@@ -81,48 +81,27 @@ page: giveitems
       <div class="requests-search__sort">
         <h3 class="h3 requests-search__sort__title">Sort by:</h3>
         <ul class="requests-search__sort__list">
-            <li class="requests-search__sort__item">
-              <button class="requests-search__sort__criteria js-sort-criteria is-active" data-sort="date-desc">Date Added</button>
-            </li>
-            <li class="requests-search__sort__item">
-              <button class="requests-search__sort__criteria js-sort-criteria" data-sort="organisation-asc">Organisation</button>
-            </li>
-            <li class="requests-search__sort__item">
-              <button class="requests-search__sort__criteria js-sort-criteria" data-sort="distance-asc">Distance</button>
-            </li>
-        </li>
-      </ul>
+          <li class="requests-search__sort__item">
+            <button class="requests-search__sort__criteria js-sort-criteria is-active" data-sort="date-desc">Date Added</button>
+          </li>
+          <li class="requests-search__sort__item">
+            <button class="requests-search__sort__criteria js-sort-criteria" data-sort="organisation-asc">Organisation</button>
+          </li>
+          <li class="requests-search__sort__item">
+            <button class="requests-search__sort__criteria js-sort-criteria" data-sort="distance-asc">Distance</button>
+          </li>
+        </ul>
+      </div>
     </div>
-
   </section>
-  <ul id="js-card-list" class="requests-listing list">
-    \{{#card}}
-    <li class="requests-listing__item" data-id="\{{id}}">
-      <a class="requests-listing__link" href="\{{detailsUrl}}">
-        <article>
-          <p class="h3 requests-listing__type">
-           <svg class="svg-logo-dims requests-listing__icon">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/svgsprite.svg#\{{{type}}}-alt"></use>
-          </svg>
-          <span class="type">\{{type}}</span>
-        </p>
-        \{{#donationAmountInPounds}}<p class="requests-listing__amount">£\{{{donationAmountInPounds}}}</p>\{{/donationAmountInPounds}}
-        <div class="requests-listing__info">
-          <h3 class="requests-listing__description description">\{{{description}}}</h3>
-          <p class="requests-listing__date formattedCreationDate">Posted: <time datetime={{{formattedCreationDate}}}>\{{{formattedCreationDate}}}</time></p>
-          <p class="hide-screen creationDate">\{{creationDate}}</p>
-          <p class="hide-screen distanceAwayInMetres">\{{distanceAwayInMetres}}</p>
-          <p class="hide-screen keywords">\{{keywords}}</p>
-        </div>
-        <div class="requests-listing__secondary-info">
-          <p class="requests-listing__provider serviceProviderName">\{{{serviceProviderName}}}</p>
-          <p class="requests-listing__location-description locationDescription">\{{{locationDescription}}}</p>
-          <button class="btn btn--brand-e">
-            <span class="btn__text">I Can Help!</span>
-          </button>
-        </article>
-      </a>
-    </li>
-    \{{/card}}
-  </ul>
+  <section id="js-card-list" class="block__section js-card-list-container">
+    <ul class="requests-listing list js-card-list-container-lm-target">
+      \{{#card}}
+        {{> give-help-list-item}}
+      \{{/card}}
+    </ul>
+    <div class="load-more">
+      <a href="#" class="btn btn--brand-e js-load-more" data-url="">Load More</a>
+    </div>
+  </section>
 </script>

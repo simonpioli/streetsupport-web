@@ -19,9 +19,12 @@ const openIfCardRequested = () => {
   }
 }
 
-const renderNeeds = (needs, userLocation, currRange) => {
+const renderNeeds = (data, userLocation, currRange) => {
+  console.log('Top of render')
+  console.log(data)
   const theData = {
-    card: needs,
+    card: data.items,
+    paging: data.links,
     location: userLocation.name,
     postcode: userLocation.postcode,
     categoryName: 'requests for help',
@@ -35,26 +38,35 @@ const renderNeeds = (needs, userLocation, currRange) => {
     browser.loaded()
   }
 
-  if (needs.length === 0) {
+  console.log(data)
+
+  if (data.items.length === 0) {
     templating.renderTemplate('js-no-data-tpl', theData, 'js-card-list-output', defaultCallback)
   } else {
+    console.log('Here')
     templating.renderTemplate('js-card-list-tpl', theData, 'js-card-list-output', () => {
       buildList()
       openIfCardRequested()
       listToSelect.init()
-      initAutoComplete(needs)
+      initAutoComplete(data.needs)
       defaultCallback()
     })
   }
 }
 
+let buildUrl = (userLocation, range = 10000, start, limit) => {
+  return `${apiRoutes.needsHAL}?longitude=${userLocation.longitude}&latitude=${userLocation.latitude}&range=${range}&start=${start}&limit=${limit}`
+}
+
 const init = function (userLocation, range = 10000) {
-  const url = `${apiRoutes.needsHAL}?longitude=${userLocation.longitude}&latitude=${userLocation.latitude}&range=${range}&limit=100`
+  let url = buildUrl(userLocation, range, 0, 9)
   getApiData.data(url)
     .then((result) => {
-      const formatted = formatNeeds(result.data.items, userLocation)
+    console.log(result)
+      const formatted = formatNeeds(result.data, userLocation)
       renderNeeds(formatted, userLocation, range)
     }, () => {
+      console.log('Fail')
       browser.redirect('/500')
     })
 }
