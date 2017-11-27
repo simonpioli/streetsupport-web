@@ -69,8 +69,6 @@ export const getProvidersForListing = (providers) => {
       days: groupOpeningTimes(provider.openingTimes),
       isOpen247: provider.isOpen247,
       servicesAvailable: provider.subCategories
-        .map((sc) => sc.name)
-        .join(', ')
     }
   }
 
