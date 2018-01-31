@@ -1,7 +1,6 @@
 let he = require('he')
-// ToDo: Find out how to actually use the MetalSmith way to register
-let decode = (html) => {
 
+let decode = (html) => {
   return he.decode(html)
 }
 
