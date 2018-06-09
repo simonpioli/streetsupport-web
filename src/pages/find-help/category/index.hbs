@@ -97,7 +97,12 @@ page: category
                 <div class="result-detail__item">
                   <div class="result-detail__content">
                     \{{#info}}<p class="result-detail__description">\{{{info}}}</p>\{{/info}}
-                    <p>Services available: <span class="result-detail__tags-item">\{{servicesAvailable}}</span></p>
+                    <p>Services available:</p>
+                    <ul class="result-detail__services-list">
+                      \{{#servicesAvailable}}
+                      <li class="result-detail__services-list__item">\{{name}}\{{#appointmentOnly}} (Appointment Only)\{{/appointmentOnly}}</li>
+                      \{{/servicesAvailable}}
+                    </ul>
                     \{{#tags}}<h2 class="h2 result-detail__sub-header">Additional Info</h2>
                     <p>Suitable for: <span class="result-detail__tags-item">\{{tags}}</span></p>\{{/tags}}
                   </div>
