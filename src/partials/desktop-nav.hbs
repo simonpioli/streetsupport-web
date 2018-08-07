@@ -1,18 +1,17 @@
-<header class="header header--desktop">
+<header class="header">
   <div class="container">
     <h1 class="h3 header__title" role="banner">
       <a href="/">{{>icon name="logo" class="icon"}} <span class="text">Street Support<br />Network</span></a>
     </h1>
-    <nav class="header__nav">
+    <button class="btn btn--plain header__btn js-nav-open" type="button">Menu</button>
+    <button class="btn btn--plain header__btn header__btn--close js-nav-close" type="button"><span>Close menu</span></button>
+    <nav class="header__nav js-nav-container">
       <ul class="nav__list">
         {{> header-nav }}
       </ul>
+      <div class="nav__list nav__list--hubs">
+        {{> nav/desktop-locations }}
+      </div>
     </nav>
   </div>
 </header>
-
-<nav class="hubs-nav">
-  <div class="container">
-    {{> nav/desktop-locations }}
-  </div>
-</nav>

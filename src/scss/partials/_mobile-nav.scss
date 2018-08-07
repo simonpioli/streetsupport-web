@@ -9,70 +9,11 @@ $header-height: 65px;
     display: none;
   }
 
-  .sub-nav-is-active & {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 10;
 
-    + * {
-      margin-top: 66px;
-    }
-  }
 
-  .header__title {
-    display: block;
-    float: left;
-    padding: 10px 0 0 10px;
-    margin: 0;
 
-    .text {
-      line-height: 1.1em;
-      vertical-align: top;
-      padding-top: 3px;
-    }
-  }
 
-  .header__btn {
-    font-weight: $font-headline-weight;
-    font-family: $font-headline;
-    float: right;
-    width: 80px;
-    height: $header-height;
-    padding: 20px;
-    margin: 0;
-    background-color:$brand-e;
-    line-height: 1.1em;
 
-    .is-active & {
-      display: none;
-    }
-
-    &--close {
-      padding: 15px 10px 14px 10px;
-      display: none;
-      z-index: 1000;
-      .is-active & {
-        display: block;
-      }
-    }
-
-    a {
-      color: $brand-k;
-    }
-
-    @include mq($from: m) {
-      display: none;
-    }
-
-    .icon {
-      height: 12px;
-      width: 12px;
-    }
-
-    @include printHide();
-  }
 
   @include mq($from: m) {
     display: none;

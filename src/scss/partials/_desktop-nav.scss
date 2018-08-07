@@ -2,21 +2,56 @@ $smallPadding: 10px;
 $normalPadding: 25px;
 $columned-dropdown-item-width: 170px;
 $columned-dropdown-column-count: 3;
+$hubsNavHeight: 60px;
+$mobileHeaderHeight: 65px;
 
 .header {
+  height: $mobileHeaderHeight;
   background: $brand-a;
   background: linear-gradient(to bottom, $brand-a, #339378);
 
   @include printHide();
+
+  @include mq($from: m) {
+    height: auto;
+  }
+
+  .sub-nav-is-active & {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    + * {
+      margin-top: 66px;
+    }
+  }
+
+  @include mq($from: m) {
+    position: relative;
+    padding-bottom: $hubsNavHeight;
+    border-bottom: 2px solid $brand-e;
+    background-origin: content-box;
+  }
 }
 
 .header__title {
   color: #FFF;
+  display: block;
+  float: left;
+  padding: 10px 0 0 10px;
+  margin: 0;
+
+  .text {
+    line-height: 1.1em;
+    vertical-align: top;
+    padding-top: 3px;
+  }
 
   @include mq($from: m) {
     display: inline-block;
     padding: $normalPadding $smallPadding $normalPadding 0;
-    float: left;
     margin: 0;
   }
 
@@ -43,13 +78,45 @@ $columned-dropdown-column-count: 3;
   }
 }
 
-.header--desktop {
-  display: none;
-  border-bottom: 2px solid $brand-e;
+.header__btn {
+  font-weight: $font-headline-weight;
+  font-family: $font-headline;
+  float: right;
+  width: 80px;
+  height: $mobileHeaderHeight;
+  padding: 20px;
+  margin: 0;
+  background-color: $brand-e;
+  line-height: 1.1em;
+
+  .is-active & {
+    display: none;
+  }
+
+  &--close {
+    padding: 15px 10px 14px;
+    display: none;
+    z-index: 1000;
+
+    .is-active & {
+      display: block;
+    }
+  }
+
+  a {
+    color: $brand-k;
+  }
 
   @include mq($from: m) {
-    display: block;
+    display: none;
   }
+
+  .icon {
+    height: 12px;
+    width: 12px;
+  }
+
+  @include printHide();
 }
 
 .header__nav {
@@ -57,13 +124,24 @@ $columned-dropdown-column-count: 3;
 }
 
 .nav__list {
+  display: none;
   list-style: none;
   margin: 0;
   padding: 0;
   background: $brand-c;
 
-  .hubs-nav & {
-    background: $brand-s;
+  @include mq($from:m) {
+    display: block;
+  }
+
+  &--hubs {
+    @include mq($from: m) {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: $brand-s;
+    }
   }
 
   &--hub {
@@ -95,75 +173,83 @@ $columned-dropdown-column-count: 3;
   .nav__item--about > &--sub-list,
   .nav__item--locations > &--sub-list {
     @include mq($from: m, $until: xxl) {
-      right: 0px
+      right: 0;
     }
   }
 }
 
 .nav__item {
-  float: left;
-  margin-bottom: 0;
-  a {
-    color: white;
-    &:hover {
-      text-decoration: none;
-    }
-
-    .nav__list--sub-list &:hover {
-      background: $brand-r;
-    }
-  }
-
-  &:hover {
-    background: $brand-c;
-    & > .nav__list {
-      display: block;            
-    }
-  }
-
-  .hubs-nav & {
-    a { 
-      color: $brand-k
-    }
-    &:hover {
-      background: $brand-s;
-    }
-  }
-
-  .nav__list--sub-list & {
-    float: none;
-    @include mq($from: m) {
-      width: $columned-dropdown-item-width;
-    }
+  @include mq($from: m) {
+    float: left;
+    margin-bottom: 0;
 
     a {
-      display: block;
-      padding: 5px 30px 5px 10px;
+      color: white;
 
       &:hover {
+        text-decoration: none;
+      }
+
+      .nav__list--sub-list &:hover {
         background: $brand-r;
       }
+    }
 
-      .hubs-nav &:hover {
-        background: $brand-e;
+    &:hover {
+      background: $brand-c;
+
+      & > .nav__list {
+        display: block;
       }
     }
-  }
 
-  .nav__list--columned & {
-    @include mq($from: m) {
-      width: $columned-dropdown-item-width;
+    .nav__list--hub & {
+      a {
+        color: $brand-k;
+      }
+
+      &:hover {
+        background: $brand-s;
+      }
     }
-  }
-  
-  &--mobile-only {
-    display: none;
-  }
 
-  &--hub-nav {
-    width: 100%;
-    &:hover { 
-      background: none!important;
+    .nav__list--sub-list & {
+      float: none;
+
+      @include mq($from: m) {
+        width: $columned-dropdown-item-width;
+      }
+
+      a {
+        display: block;
+        padding: 5px 30px 5px 10px;
+
+        &:hover {
+          background: $brand-r;
+        }
+
+        .hubs-nav &:hover {
+          background: $brand-e;
+        }
+      }
+    }
+
+    .nav__list--columned & {
+      @include mq($from: m) {
+        width: $columned-dropdown-item-width;
+      }
+    }
+
+    &--mobile-only {
+      display: none;
+    }
+
+    &--hub-nav {
+      width: 100%;
+
+      &:hover {
+        background: none!important;
+      }
     }
   }
 }
@@ -177,7 +263,7 @@ $columned-dropdown-column-count: 3;
     text-decoration: none;
   }
 
-  .hubs-nav & {
+  .nav__list--hubs & {
     color: $brand-k;
     padding: 18px 10px;
 
@@ -186,7 +272,7 @@ $columned-dropdown-column-count: 3;
     }
   }
 
-  .hubs-nav &--has-sub-nav {
+  .nav__list--hubs &--has-sub-nav {
     padding-right: 35px;
   }
 
@@ -195,8 +281,8 @@ $columned-dropdown-column-count: 3;
     position: relative;
     &::after {
       content: '';
-      width: 0; 
-      height: 0; 
+      width: 0;
+      height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
       border-top: 5px solid white;
@@ -205,22 +291,12 @@ $columned-dropdown-column-count: 3;
       position: absolute;
     }
 
-    .hubs-nav & {
+    .nav__list--hubs & {
       &::after {
-        border-top: 5px solid $brand-k; 
+        border-top: 5px solid $brand-k;
         top: 1.7em;
       }
     }
-  }
-}
-
-.hubs-nav {
-  display: none;
-  margin-top: -2px;
-  background: $brand-e;
-
-  @include mq($from: m) {
-    display: block;
   }
 }
 
@@ -237,6 +313,7 @@ $columned-dropdown-column-count: 3;
       background: $brand-c;
     }
   }
+
   .section--#{$section} .nav__list--hub .nav__item--#{$section} {
     @include mq($from: m) {
       background: $brand-s;
@@ -252,19 +329,20 @@ $columned-dropdown-column-count: 3;
         background: $brand-c;
       }
     }
+
     .header__nav .nav__list--sub-list .nav__item--#{$page} > a {
       @include mq($from: m) {
         background: $brand-r;
       }
     }
 
-    .hubs-nav .nav__item--#{$page} {
+    .nav__list--hubs .nav__item--#{$page} {
       @include mq($from: m) {
         background: $brand-s;
       }
     }
 
-    .hubs-nav .nav__list--sub-list .nav__item--#{$page} {
+    .nav__list--hubs .nav__list--sub-list .nav__item--#{$page} {
       @include mq($from: m) {
         background: $brand-e;
       }
